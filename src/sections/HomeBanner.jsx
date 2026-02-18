@@ -1,0 +1,26 @@
+import Banner from "../assets/backgrounds/home.png"
+import Logo from "../assets/logos/logo.svg"
+import Button from "../components/Button"
+import BannerNav from "./BannerNav"
+
+export default function HomeBanner() {
+    return (
+        <>
+            <section className="bg-cover bg-center" style={{backgroundImage: `url(${Banner})`}}>
+                <div className="flex flex-col items-center pt-20 md:pt-10 gap-10 mx-auto">
+                    <figure className="w-75 flex items-center">
+                        <img src={Logo}/>
+                    </figure>
+                    <div className="flex flex-col items-center">
+                        <h2 className="text-warm-yellow font-['Satisfy'] text-[32px] leading-11 font-normal text-center hidden md:block">fırsatı kaçırma</h2>
+                        <h1 className="text-white font-['Roboto_Condensed'] text-7xl leading-23 font-light tracking-wide text-center">KOD ACIKTIRIR</h1>
+                        <h1 className="text-white font-['Roboto_Condensed'] text-7xl leading-23 font-light tracking-wide text-center">PIZZA, DOYURUR</h1>
+                    </div>
+                    <Button size="home" color="home">ACIKTIM</Button>
+                </div>
+            </section>
+            <BannerNav />
+        </>
+        
+    )
+}
