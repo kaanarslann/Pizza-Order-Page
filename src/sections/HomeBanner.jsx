@@ -6,9 +6,9 @@ import BannerNav from "./BannerNav"
 export default function HomeBanner() {
     return (
         <>
-            <section className="bg-cover bg-center" style={{backgroundImage: `url(${Banner})`}}>
-                <div className="flex flex-col items-center pt-20 md:pt-10 gap-10 mx-auto">
-                    <figure className="w-75 flex items-center">
+            <section className="bg-cover bg-center h-screen flex flex-col justify-between" style={{backgroundImage: `url(${Banner})`}}>
+                <div className="flex flex-col items-center pt-20 md:pt-10 gap-5 mx-auto">
+                    <figure className="w-75 flex items-center pb-5">
                         <img src={Logo}/>
                     </figure>
                     <div className="flex flex-col items-center">
@@ -18,8 +18,9 @@ export default function HomeBanner() {
                     </div>
                     <Button size="home" color="home">ACIKTIM</Button>
                 </div>
+                <BannerNav />
             </section>
-            <BannerNav />
+            
         </>
         
     )
