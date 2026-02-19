@@ -1,4 +1,4 @@
-import NavCard from "../components/NavCard.jsx"
+import NavCard from "./NavCard.jsx"
 import data from "../data/data.js"
 
 export default function BannerNav() {

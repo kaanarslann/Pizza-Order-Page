@@ -1,7 +1,7 @@
 import Banner from "../assets/backgrounds/home.png"
 import Logo from "../assets/logos/logo.svg"
 import Button from "../components/Button"
-import BannerNav from "./BannerNav"
+import BannerNav from "../components/BannerNav"
 
 export default function HomeBanner() {
     return (
