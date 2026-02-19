@@ -1,9 +1,9 @@
 export default function Button({size, color, purpose, children}) {
     
-    const base = "rounded-[50px] hover:bg-black hover:text-white";
+    const base = "rounded-[50px] hover:bg-black hover:text-white hover:cursor-pointer text-center flex items-center justify-center";
     
     const sizes = {
-        home: "h-14 w-45",
+        home: "h-11 w-34  md:h-14 md:w-45",
         card: "h-12 w-34",
     };
 

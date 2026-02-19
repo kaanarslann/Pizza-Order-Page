@@ -11,10 +11,10 @@ export default function HomeBanner() {
                     <figure className="w-75 flex items-center pb-5">
                         <img src={Logo}/>
                     </figure>
-                    <div className="flex flex-col items-center">
+                    <div className="flex flex-col items-center px-5">
                         <h2 className="text-warm-yellow font-['Satisfy'] text-[32px] leading-11 font-normal text-center hidden md:block">fırsatı kaçırma</h2>
-                        <h1 className="text-white font-['Roboto_Condensed'] text-7xl leading-23 font-light tracking-wide text-center">KOD ACIKTIRIR</h1>
-                        <h1 className="text-white font-['Roboto_Condensed'] text-7xl leading-23 font-light tracking-wide text-center">PIZZA, DOYURUR</h1>
+                        <h1 className="text-white font-['Roboto_Condensed'] text-6xl leading-15 md:leading-20 font-light tracking-wide text-center">KOD ACIKTIRIR</h1>
+                        <h1 className="text-white font-['Roboto_Condensed'] text-6xl leading-15 md:leading-20 font-light tracking-wide text-center">PİZZA, DOYURUR</h1>
                     </div>
                     <Button size="home" color="home">ACIKTIM</Button>
                 </div>
