@@ -7,6 +7,9 @@ import Drink from "../assets/icons/drink.svg";
 import Card1 from "../assets/backgrounds/card1.png";
 import Card2 from "../assets/backgrounds/card2.png";
 import Card3 from "../assets/backgrounds/card3.png";
+import PizzaMenu1 from "../assets/foods/pizza1.png";
+import PizzaMenu2 from "../assets/foods/pizza2.png";
+import BurgerMenu from "../assets/foods/burger.png";
 
 const data = {
     bannerNav: [
@@ -52,6 +55,20 @@ const data = {
             image: Card3,
             title: "Çoooook hızlı npm gibi kurye",
         },
+    ],
+    menuCards: [
+        {
+            image: PizzaMenu1,
+            text: "Terminal Pizza"
+        },
+        {
+            image: PizzaMenu2,
+            text: "Position Absolute Acı Pizza"
+        },
+        {
+            image: BurgerMenu,
+            text: "useEffect Tavuklu Burger"
+        }
     ]
 }
 

@@ -5,7 +5,7 @@ const bigOrder = data.orderCards.big;
 
 export default function HomeCards() {
     return (
-        <section className="bg-floral-white pt-10">
+        <section className="bg-floral-white pt-20">
             <div className="flex justify-center">
                 <article className="grid grid-cols-1 md:grid-cols-2 md:grid-rows-2 justify-items-center gap-3">
                 {data.orderCards.map((card, index) => (
