@@ -12,7 +12,7 @@ const data = {
     bannerNav: [
         {
             icon: Ramen,
-            text: "YENİ! Kore"
+            text: "Ramen"
         },
         {
             icon: Pizza,
