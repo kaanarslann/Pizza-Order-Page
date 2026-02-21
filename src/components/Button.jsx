@@ -1,4 +1,4 @@
-export default function Button({size, color, children}) {
+export default function Button({size, color, children, purpose}) {
     
     const base = "rounded-[50px] hover:bg-black hover:text-white hover:cursor-pointer text-center flex items-center justify-center font-['Barlow'] font-semibold text-md md:text-lg leading-14";
     
@@ -16,7 +16,7 @@ export default function Button({size, color, children}) {
     
     return (
         <>
-            <button className={className}>
+            <button className={className} onClick={purpose}>
                 {children}
             </button>
         </>
