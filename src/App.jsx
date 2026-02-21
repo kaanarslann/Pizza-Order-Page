@@ -1,12 +1,14 @@
-
 import './App.css'
-import Home from './pages/Home'
+import Footer from './layout/Footer'
+import PageContent from './layout/PageContent'
+
 
 function App() {
 
   return (
     <>
-      <Home />
+      <PageContent />
+      <Footer />
     </>
   )
 }

@@ -10,6 +10,16 @@ import Card3 from "../assets/backgrounds/card3.png";
 import PizzaMenu1 from "../assets/foods/pizza1.png";
 import PizzaMenu2 from "../assets/foods/pizza2.png";
 import BurgerMenu from "../assets/foods/burger.png";
+import FooterLogo from "../assets/logos/logofooter.svg";
+import Insta1 from "../assets/instagram/insta1.png";
+import Insta2 from "../assets/instagram/insta2.png";
+import Insta3 from "../assets/instagram/insta3.png";
+import Insta4 from "../assets/instagram/insta4.png";
+import Insta5 from "../assets/instagram/insta5.png";
+import Insta6 from "../assets/instagram/insta6.png";
+import LocationIcon from "../assets/icons/icon-1.png";
+import MailIcon from "../assets/icons/icon-2.png";
+import PhoneIcon from "../assets/icons/icon-3.png";
 
 const data = {
     bannerNav: [
@@ -69,7 +79,33 @@ const data = {
             image: BurgerMenu,
             text: "useEffect Tavuklu Burger"
         }
-    ]
+    ],
+    footerSection: {
+        logo: FooterLogo,
+        locationIcon: LocationIcon,
+        mailIcon: MailIcon,
+        phoneIcon: PhoneIcon,
+        insta: [
+            {
+                image: Insta1
+            },
+            {
+                image: Insta2
+            },
+            {
+                image: Insta3
+            },
+            {
+                image: Insta4
+            },
+            {
+                image: Insta5
+            },
+            {
+                image: Insta6
+            },
+        ]
+    }
 }
 
 export default data;
