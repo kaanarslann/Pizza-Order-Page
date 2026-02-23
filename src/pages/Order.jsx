@@ -1,7 +1,9 @@
+import OrderProduct from "../sections/OrderProduct";
+
 export default function Order() {
     return (
         <>
-        <h1>Order</h1>
+            <OrderProduct />
         </>
     )
 }
