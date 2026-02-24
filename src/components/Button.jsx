@@ -1,4 +1,4 @@
-export default function Button({size, color, children, purpose}) {
+export default function Button({size, color, children, purpose, orderSubmit}) {
     
     const base = "hover:cursor-pointer text-center flex items-center justify-center font-['Barlow']";
     
@@ -17,6 +17,14 @@ export default function Button({size, color, children, purpose}) {
 
     const className = `${base} ${sizes[size]} ${colors[color]}`;
 
+    
+    if(orderSubmit) {
+        return (
+            <button className={className} type="submit">
+                {children}
+            </button>
+        )
+    }
     
     return (
         <>

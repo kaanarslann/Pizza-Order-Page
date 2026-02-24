@@ -1,41 +1,102 @@
 import Button from "../components/Button.jsx";
-import data from "../data/data.js"
+import data from "../data/data.js";
+import { useForm } from "react-hook-form";
 
 export default function OrderForm() {
     
-    const buttonStyle = "flex items-center justify-center w-10 h-10 md:w-14 md:h-14 rounded-full border border-floral-white bg-floral-white hover:bg-[#FFEECC] text-light-gray font-['Barlow'] font-medium";
+    const {
+        register, 
+        handleSubmit, 
+        watch, 
+        formState: {errors},
+        setValue, 
+        setError, 
+        clearErrors
+    } = useForm({
+        defaultValues: {
+            size: "",
+            dough: "",
+            toppings: [],
+            note: "",
+            quantity: 1
+        }
+    });
+
+    const selectedToppings = watch("toppings");
+    const selectedSize = watch("size");
+    const size = watch("size");
+    const toppings = watch("toppings") || [];
+    const quantity = watch("quantity") || 1;
+
+    const onSubmit = (data) => {
+        console.log(data);
+    };
+
+    const basePrice = 85.50;
+    const sizePrices = {
+        small: 0,
+        medium: 15.50,
+        large: 30
+    };
+    const toppingPrice = 5;
+
+    const sizeExtra = sizePrices[size] || 0;
+    const toppingsExtra = toppings.length * toppingPrice;
+    const totalPrice = (basePrice + sizeExtra + toppingsExtra) * quantity;
+
+    const increaseQuantity = () => {
+        setValue("quantity", quantity + 1, {shouldValidate: true});
+    }
+
+    const decreaseQuantity = () => {
+        if(quantity > 1) {
+            setValue("quantity", quantity - 1, {shouldValidate: true});
+        }
+    };
+    
+    const buttonStyle = "flex items-center justify-center w-10 h-10 md:w-14 md:h-14 rounded-full border border-floral-white text-light-gray font-['Barlow'] font-medium";
     
     return (
         <>
-            <form className="max-w-xl mx-auto pt-10 px-15 md:px-0">
+            <form className="max-w-xl mx-auto pt-10 px-15 md:px-0" onSubmit={handleSubmit(onSubmit)}>
                 <div className="flex justify-between">
                     <section className="flex flex-col gap-3 items-center md:items-start">
                         <h2 className="font-['Barlow'] font-semibold text-lg leading-6 text-dark-gray">Boyut Seç <span className="text-strong-red">*</span></h2>
                         <div className="flex flex-col md:flex-row gap-2">
-                            <label className="cursor-pointer" htmlFor="size">
-                                <input name="size" type="radio" value="S" className="peer hidden"/>
-                                <span className={buttonStyle}>S</span>
+                            <label className="cursor-pointer">
+                                <input type="radio" value="small" className="hidden" 
+                                {...register("size", {required: "Boyut seçiniz"})}/>
+                                <span className={`${buttonStyle} ${selectedSize === "small" ? "bg-[#FFEECC]" : "bg-floral-white"}`}>S</span>
                             </label>
-                            <label className="cursor-pointer" htmlFor="size">
-                                <input name="size" type="radio" value="M" className="peer hidden"/>
-                                <span className={buttonStyle}>M</span>
+                            <label className="cursor-pointer">
+                                <input type="radio" value="medium" className="hidden" 
+                                {...register("size")}/>
+                                <span className={`${buttonStyle} ${selectedSize === "medium" ? "bg-[#FFEECC]" : "bg-floral-white"}`}>M</span>
                             </label>
-                            <label className="cursor-pointer" htmlFor="size">
-                                <input name="size" type="radio" value="L" className="peer hidden"/>
-                                <span className={buttonStyle}>L</span>
+                            <label className="cursor-pointer">
+                                <input type="radio" value="large" className="hidden" 
+                                {...register("size")}/>
+                                <span className={`${buttonStyle} ${selectedSize === "large" ? "bg-[#FFEECC]" : "bg-floral-white"}`}>L</span>
                             </label>
                         </div>
+                        {errors.size && (
+                            <p className="text-strong-red text-sm">{errors.size.message}</p>
+                        )}
                     </section>
                     <section className="flex flex-col gap-3">
                         <h2 className="font-['Barlow'] font-semibold text-lg leading-6 text-dark-gray">Hamur Seç <span className="text-strong-red">*</span></h2>
                         <div>
                             <label htmlFor="dough"></label>
                             <select type="select" name="dough" id="dough" className="h-10 md:h-14 border border-floral-white rounded-lg 
-                            bg-floral-white text-light-gray p-2 font-['Barlow'] font-medium">
-                                <option>-Hamur Kalınlığı Seç-</option>
-                                <option>İnce</option>
-                                <option>Normal</option>
+                            bg-floral-white text-light-gray p-2 font-['Barlow'] font-medium" 
+                            {...register("dough", {required: "Hamur tipi seçiniz."})}>
+                                <option value="">-Hamur Kalınlığı Seç-</option>
+                                <option value="thin">İnce</option>
+                                <option value="thick">Normal</option>
                             </select>
+                            {errors.dough && (
+                                <p className="text-strong-red text-sm">{errors.dough.message}</p>
+                            )}
                         </div>
                     </section>
                 </div>
@@ -46,7 +107,10 @@ export default function OrderForm() {
                         {data.orderToppings.map((topping, index) => (
                             <div key={index} className="flex items-center">
                                 <label className="flex items-center gap-3 cursor-pointer">
-                                    <input type="checkbox" className="peer hidden" />
+                                    <input type="checkbox" className="peer hidden" value={topping}
+                                    {...register("toppings", {
+                                        validate: (value) => value.length <= 10 || "En fazla 10 malzeme seçebilirsiniz"
+                                    })}/>
                                     <span className="
                                         relative w-10 h-10
                                         rounded border border-floral-white
@@ -66,20 +130,24 @@ export default function OrderForm() {
                             </div>
                         ))}
                     </div>
+                    {errors.toppings && (
+                        <p className="text-strong-red text-sm">{errors.toppings.message}</p>
+                    )}
                 </section>
                 <section className="pt-10 flex flex-col gap-5">
                     <h2 className="font-['Barlow'] font-semibold text-lg leading-6 text-dark-gray">Sipariş Notu</h2>
                     <input type="text" className="h-14 w-full border border-floral-white rounded-lg 
                             bg-floral-white text-light-gray font-['Barlow'] p-2 text-sm font-medium" 
-                            placeholder="Siparişine eklemek istediğin bir not var mı?"/>
+                            placeholder="Siparişine eklemek istediğin bir not var mı?" 
+                            {...register("note")}/>
                 </section>
                 <section className="pt-10 pb-20">
                     <div className="flex flex-col md:flex-row gap-5 md:gap-0 md:justify-between">
                         <div className="flex justify-center md:justify-start">
-                            <Button color="number" size="number">-</Button>
+                            <Button color="number" size="number" purpose={decreaseQuantity}>-</Button>
                             <span className="w-14 h-14 border border-[#D9D9D9] flex justify-center 
-                            items-center rounded-md font-['Barlow'] font-bold">1</span>
-                            <Button color="number" size="number">+</Button>
+                            items-center rounded-md font-['Barlow'] font-bold">{quantity}</span>
+                            <Button color="number" size="number" purpose={increaseQuantity}>+</Button>
                         </div>
                         <div className="flex flex-col items-center md:items-start">
                             <div className="w-70 md:w-87 border border-[#D9D9D9] bg-floral-white rounded-md
@@ -88,15 +156,15 @@ export default function OrderForm() {
                                 <div className="flex flex-col gap-2">
                                     <div className="flex text-lg text-light-gray justify-between">
                                         <h3>Seçimler</h3>
-                                        <h3>25.00₺</h3>
+                                        <h3>{toppingsExtra.toFixed(2)}₺</h3>
                                     </div>
                                     <div className="flex text-lg text-strong-red justify-between">
                                         <h3>Toplam</h3>
-                                        <h3>110.50₺</h3>
+                                        <h3>{totalPrice.toFixed(2)}₺</h3>
                                     </div>
                                 </div>
                             </div>
-                            <Button size="order" color="number">SİPARİŞ VER</Button>
+                            <Button size="order" color="number" orderSubmit={true}>SİPARİŞ VER</Button>
                         </div>
                     </div>
                 </section>
