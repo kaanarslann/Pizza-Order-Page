@@ -105,7 +105,8 @@ const data = {
                 image: Insta6
             },
         ]
-    }
+    },
+    orderToppings: ["Pepperoni", "Sosis", "Jambon", "Tavuk", "Soğan", "Domates", "Mısır", "Sucuk", "Jalapeno", "Sarımsak", "Biber", "Sucuk", "Ananas", "Kabak", "Ton Balığı"]
 }
 
 export default data;

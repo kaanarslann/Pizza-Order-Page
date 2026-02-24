@@ -4,7 +4,7 @@ import FormPizza from "../assets/foods/formPizza.png"
 export default function OrderProduct() {
     return (
         <section className="bg-floral-white">
-            <div className="flex flex-col gap-5 max-w-xl mx-auto px-10 md:px-0 pt-5 md:pt-0">
+            <div className="flex flex-col gap-5 max-w-xl mx-auto px-15 md:px-0 pt-5 md:pt-0 pb-10">
                 <figure className="md:flex justify-center hidden">
                     <img src={FormPizza}/>
                 </figure>
@@ -14,7 +14,9 @@ export default function OrderProduct() {
                         <span className="text-light-gray">-</span>
                         <Link className="text-strong-red">Sipariş Oluştur</Link>
                     </div>
-                    <h2 className="font-['Barlow'] font-semibold text-[22px] leading-7 text-dark-gray">Position Absolute Acı Pizza</h2>
+                    <h2 className="font-['Barlow'] font-semibold text-[22px] leading-7 text-dark-gray">
+                        Position Absolute Acı Pizza
+                    </h2>
                     <div className="flex justify-between font-['Barlow']">
                         <span className="text-dark-gray font-bold text-2xl leading-9">85.50₺</span>
                         <div className="flex gap-20 text-light-gray leading-7">
