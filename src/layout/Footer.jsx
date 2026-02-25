@@ -22,7 +22,7 @@ export default function Footer() {
                         </div>
                         <div className="flex gap-2">
                             <img src={data.footerSection.mailIcon} className="w-7 h-7"/>
-                            <a href="https://personal-portfolio-page-liard.vercel.app/">Portföy Sayfası</a>
+                            <a href="https://personal-portfolio-page-liard.vercel.app/" target="_blank">Portföy Sayfası</a>
                         </div>
                         <div className="flex gap-2">
                             <img src={data.footerSection.phoneIcon} className="w-7 h-7"/>
