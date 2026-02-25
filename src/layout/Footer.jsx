@@ -1,12 +1,20 @@
 import data from "../data/data.js"
+import { useNavigate } from "react-router"
 
 export default function Footer() {
+    
+    const navigate = useNavigate();
+    const logoButton = () => {
+        navigate("/");
+    };
+    
+    
     return (
         <footer className="bg-[#1A1A1A] flex font-['Barlow'] text-white mx-auto 
         justify-center items-center pt-20 pb-10 text-lg leading-8 px-20">
             <section className="flex flex-col md:flex-row gap-30">
                 <div className="flex flex-col gap-9">
-                    <img src={data.footerSection.logo} className="w-63 h-25"/>
+                    <img src={data.footerSection.logo} className="w-63 h-25 hover:cursor-pointer" onClick={logoButton}/>
                     <div className="flex flex-col gap-4">
                         <div className="flex gap-2">
                             <img src={data.footerSection.locationIcon} className="w-7 h-7"/>

@@ -1,3 +1,28 @@
+# Pizza Order App
+
+A responsive pizza ordering application built with React.  
+Users can select pizza size, toppings, quantity, and see real-time price updates before placing an order.
+
+## Features
+
+- Size selection using radio buttons
+- Topping selection with checkbox (max 10 toppings)
+- Quantity control with dynamic price calculation
+- Form validation using React Hook Form
+- API-based date & time fetching (with fallback to local time)
+- Order summary page
+- Responsive design
+
+## Technologies Used
+
+- React
+- React Router
+- React Hook Form
+- Context API
+- Axios
+- Tailwind CSS
+- Toastify
+
 # React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.

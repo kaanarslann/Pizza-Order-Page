@@ -28,7 +28,7 @@ export default function Button({size, color, children, purpose, orderSubmit}) {
     
     return (
         <>
-            <button className={className} onClick={purpose}>
+            <button className={className} type="button" onClick={purpose}>
                 {children}
             </button>
         </>

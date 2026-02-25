@@ -5,11 +5,11 @@ import HomeNavs from "../sections/HomeNavs";
 
 export default function Home() {
     return (
-        <main className="flex flex-col">
+        <section className="flex flex-col">
             <HomeBanner />
             <HomeCards />
             <HomeNavs />
             <HomeMenuCards />
-        </main>
+        </section>
     )
 }

@@ -1,8 +1,17 @@
 import Button from "../components/Button.jsx";
 import data from "../data/data.js";
 import { useForm } from "react-hook-form";
+import { useContext } from "react";
+import { OrderContext } from "../context/OrderContext.jsx";
+import { toast } from "react-toastify";
+import axios from "axios";
+import { useNavigate } from "react-router";
+import OrderSummary from "../components/OrderSummary.jsx";
 
 export default function OrderForm() {
+    
+    const {setOrder} = useContext(OrderContext);
+    const navigate = useNavigate();
     
     const {
         register, 
@@ -18,7 +27,8 @@ export default function OrderForm() {
             dough: "",
             toppings: [],
             note: "",
-            quantity: 1
+            quantity: 1,
+            title: "Position Absulute Acı Pizza"
         }
     });
 
@@ -27,10 +37,6 @@ export default function OrderForm() {
     const size = watch("size");
     const toppings = watch("toppings") || [];
     const quantity = watch("quantity") || 1;
-
-    const onSubmit = (data) => {
-        console.log(data);
-    };
 
     const basePrice = 85.50;
     const sizePrices = {
@@ -53,6 +59,50 @@ export default function OrderForm() {
             setValue("quantity", quantity - 1, {shouldValidate: true});
         }
     };
+
+    const onSubmit = async (data) => {
+        try {
+            const response = await axios.get(
+                "https://time.now/developer/api/timezone/Europe/Istanbul"
+            );
+
+            const date = new Date(response.data.datetime);
+            const orderDate = date.toLocaleDateString("tr-TR");
+            const orderTime = date.toLocaleTimeString("tr-TR", {
+            hour: "2-digit",
+            minute: "2-digit"
+            });
+
+            setOrder({
+            ...data,
+            toppingsExtra,
+            totalPrice,
+            orderDate,
+            orderTime
+            });
+
+            toast.success("Sipariş oluşturuldu!");
+            navigate("/success");
+            } catch (error) {
+                console.error(error);
+
+                const date = new Date();
+
+                setOrder({
+                    ...data,
+                    toppingsExtra,
+                    totalPrice,
+                    orderDate: date.toLocaleDateString("tr-TR"),
+                    orderTime: date.toLocaleTimeString("tr-TR", {
+                        hour: "2-digit",
+                        minute: "2-digit"
+                    })
+                });
+
+                toast.error("Zaman servisine ulaşılamadı. Yerel saat kullanıldı.");
+                navigate("/success");
+            }
+        };
     
     const buttonStyle = "flex items-center justify-center w-10 h-10 md:w-14 md:h-14 rounded-full border border-floral-white text-light-gray font-['Barlow'] font-medium";
     
@@ -64,19 +114,19 @@ export default function OrderForm() {
                         <h2 className="font-['Barlow'] font-semibold text-lg leading-6 text-dark-gray">Boyut Seç <span className="text-strong-red">*</span></h2>
                         <div className="flex flex-col md:flex-row gap-2">
                             <label className="cursor-pointer">
-                                <input type="radio" value="small" className="hidden" 
+                                <input type="radio" value="S" className="hidden" 
                                 {...register("size", {required: "Boyut seçiniz"})}/>
-                                <span className={`${buttonStyle} ${selectedSize === "small" ? "bg-[#FFEECC]" : "bg-floral-white"}`}>S</span>
+                                <span className={`${buttonStyle} ${selectedSize === "S" ? "bg-[#FFEECC]" : "bg-floral-white"}`}>S</span>
                             </label>
                             <label className="cursor-pointer">
-                                <input type="radio" value="medium" className="hidden" 
+                                <input type="radio" value="M" className="hidden" 
                                 {...register("size")}/>
-                                <span className={`${buttonStyle} ${selectedSize === "medium" ? "bg-[#FFEECC]" : "bg-floral-white"}`}>M</span>
+                                <span className={`${buttonStyle} ${selectedSize === "M" ? "bg-[#FFEECC]" : "bg-floral-white"}`}>M</span>
                             </label>
                             <label className="cursor-pointer">
-                                <input type="radio" value="large" className="hidden" 
+                                <input type="radio" value="L" className="hidden" 
                                 {...register("size")}/>
-                                <span className={`${buttonStyle} ${selectedSize === "large" ? "bg-[#FFEECC]" : "bg-floral-white"}`}>L</span>
+                                <span className={`${buttonStyle} ${selectedSize === "L" ? "bg-[#FFEECC]" : "bg-floral-white"}`}>L</span>
                             </label>
                         </div>
                         {errors.size && (
@@ -91,8 +141,9 @@ export default function OrderForm() {
                             bg-floral-white text-light-gray p-2 font-['Barlow'] font-medium" 
                             {...register("dough", {required: "Hamur tipi seçiniz."})}>
                                 <option value="">-Hamur Kalınlığı Seç-</option>
-                                <option value="thin">İnce</option>
-                                <option value="thick">Normal</option>
+                                <option value="Süpper İnce">Süpper İnce</option>
+                                <option value="İnce">İnce</option>
+                                <option value="Normal">Normal</option>
                             </select>
                             {errors.dough && (
                                 <p className="text-strong-red text-sm">{errors.dough.message}</p>
@@ -144,26 +195,13 @@ export default function OrderForm() {
                 <section className="pt-10 pb-20">
                     <div className="flex flex-col md:flex-row gap-5 md:gap-0 md:justify-between">
                         <div className="flex justify-center md:justify-start">
-                            <Button color="number" size="number" purpose={decreaseQuantity}>-</Button>
+                            <Button color="number" size="number" orderSubmit={false} purpose={decreaseQuantity}>-</Button>
                             <span className="w-14 h-14 border border-[#D9D9D9] flex justify-center 
                             items-center rounded-md font-['Barlow'] font-bold">{quantity}</span>
-                            <Button color="number" size="number" purpose={increaseQuantity}>+</Button>
+                            <Button color="number" size="number" orderSubmit={false} purpose={increaseQuantity}>+</Button>
                         </div>
                         <div className="flex flex-col items-center md:items-start">
-                            <div className="w-70 md:w-87 border border-[#D9D9D9] bg-floral-white rounded-md
-                            md:rounded-tl-md md:rounded-tr-md flex flex-col p-10 gap-3 font-['Barlow'] font-semibold leading-6">
-                                <h2 className="text-xl text-dark-gray">Sipariş Toplamı</h2>
-                                <div className="flex flex-col gap-2">
-                                    <div className="flex text-lg text-light-gray justify-between">
-                                        <h3>Seçimler</h3>
-                                        <h3>{toppingsExtra.toFixed(2)}₺</h3>
-                                    </div>
-                                    <div className="flex text-lg text-strong-red justify-between">
-                                        <h3>Toplam</h3>
-                                        <h3>{totalPrice.toFixed(2)}₺</h3>
-                                    </div>
-                                </div>
-                            </div>
+                            <OrderSummary extras={toppingsExtra} total={totalPrice} titleColor="order" bgColor="order" textColor="order"/>
                             <Button size="order" color="number" orderSubmit={true}>SİPARİŞ VER</Button>
                         </div>
                     </div>
