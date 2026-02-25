@@ -23,6 +23,19 @@ Users can select pizza size, toppings, quantity, and see real-time price updates
 - Tailwind CSS
 - Toastify
 
+## Previous Version
+
+This project is a refactored and improved version of an earlier pizza ordering app I built while learning React.
+
+🔗 Old Repository: https://github.com/kaanarslann/Pizza-SPA
+
+The new version focuses on:
+- Better component structure
+- A fallback scenario
+- Proper form validation
+- Improved UI/UX
+- Cleaner state management
+
 # React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
